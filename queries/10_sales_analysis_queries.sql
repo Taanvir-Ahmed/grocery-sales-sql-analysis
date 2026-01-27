@@ -57,3 +57,51 @@ HAVING SUM(v.Quantity) > 0
 ORDER BY
   Net_Revenue ASC
 LIMIT 10;  
+
+
+
+-- Core KPIs (net revenue, transactions, total customers, units sold)
+
+
+SELECT
+  CONCAT(ROUND(SUM(net_sales) / 1000000000, 2),'B') AS net_revenue_billion,
+  CONCAT(ROUND(COUNT(DISTINCT TransactionNumber)/1000000,2),'M') AS total_transactions,
+  COUNT(DISTINCT CustomerID) AS total_customers,
+  CONCAT(ROUND(SUM(Quantity)/1000000,2),'M') AS total_units_sold
+FROM sales_enriched;
+
+
+
+
+-- Average basket size (units per transaction)
+
+
+SELECT
+  ROUND(AVG(units_in_order), 2) AS avg_units_per_transaction
+FROM (
+  SELECT
+    TransactionNumber,
+    SUM(Quantity) AS units_in_order
+  FROM sales_enriched
+  GROUP BY TransactionNumber
+) t;
+
+
+
+-- How many repeat customers do we have?
+
+WITH customer_orders AS (
+  SELECT
+    CustomerID,
+    COUNT(DISTINCT TransactionNumber) AS orders
+  FROM sales_enriched
+  GROUP BY CustomerID
+)
+SELECT
+  CASE
+    WHEN orders = 1 THEN 'One-time'
+    ELSE 'Repeat'
+  END AS customer_type,
+  COUNT(*) AS customers
+FROM customer_orders
+GROUP BY customer_type;
