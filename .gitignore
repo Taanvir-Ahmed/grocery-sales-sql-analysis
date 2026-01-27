@@ -1,0 +1,6 @@
+# macOS system files
+.DS_Store
+
+# Ignore CSV data files
+data/*.csv
+
