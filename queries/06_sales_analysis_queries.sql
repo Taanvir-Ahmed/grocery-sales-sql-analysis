@@ -140,3 +140,19 @@ GROUP BY
 ORDER BY
   SUM(se.net_sales) DESC;
 
+
+  -- Which cities generate the most net revenue, and how many customers do they have?
+  SELECT
+  ci.CityName,
+  ROUND(SUM(se.net_sales) / 1000000, 2) AS net_revenue_million,
+  COUNT(DISTINCT se.TransactionNumber) AS total_transactions,
+  COUNT(DISTINCT se.CustomerID) AS total_customers
+FROM sales_enriched se
+JOIN customers cu ON se.CustomerID = cu.CustomerID
+JOIN cities ci ON cu.CityID = ci.CityID
+GROUP BY
+  ci.CityName
+ORDER BY
+  SUM(se.net_sales) DESC
+LIMIT 10;
+
