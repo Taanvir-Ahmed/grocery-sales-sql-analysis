@@ -105,3 +105,20 @@ SELECT
   COUNT(*) AS customers
 FROM customer_orders
 GROUP BY customer_type;
+
+
+-- Top customers by net spend (VIP list).
+SELECT
+  se.CustomerID,
+  CONCAT(c.FirstName, ' ', c.LastName) AS customer_name,
+  ci.CityName,
+  co.CountryName,
+  ROUND(SUM(se.net_sales) / 1000000, 2) AS total_net_spend_million,
+  COUNT(DISTINCT se.TransactionNumber) AS total_transactions
+FROM sales_enriched se
+JOIN customers c ON se.CustomerID = c.CustomerID
+JOIN cities ci ON c.CityID = ci.CityID
+JOIN countries co ON ci.CountryID = co.CountryID
+GROUP BY se.CustomerID, customer_name, ci.CityName, co.CountryName
+ORDER BY SUM(se.net_sales) DESC
+LIMIT 10;
