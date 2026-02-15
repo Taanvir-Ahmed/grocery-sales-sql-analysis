@@ -122,3 +122,21 @@ JOIN countries co ON ci.CountryID = co.CountryID
 GROUP BY se.CustomerID, customer_name, ci.CityName, co.CountryName
 ORDER BY SUM(se.net_sales) DESC
 LIMIT 10;
+
+
+--Which salespeople generate the most net revenue, and how many transactions do they handle?
+SELECT
+  se.SalesPersonID AS employee_id,
+  CONCAT(e.FirstName, ' ', e.LastName) AS salesperson_name,
+  ROUND(SUM(se.net_sales) / 1000000, 2) AS net_revenue_million,
+  COUNT(DISTINCT se.TransactionNumber) AS total_transactions,
+  ROUND(SUM(se.net_sales) / COUNT(DISTINCT se.TransactionNumber), 2) AS avg_revenue_per_transaction
+FROM sales_enriched se
+JOIN employees e
+  ON se.SalesPersonID = e.EmployeeID
+GROUP BY
+  se.SalesPersonID,
+  salesperson_name
+ORDER BY
+  SUM(se.net_sales) DESC;
+
