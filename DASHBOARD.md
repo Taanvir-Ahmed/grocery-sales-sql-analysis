@@ -4,6 +4,8 @@ This dashboard was created to visualize the SQL analysis from the Grocery Sales 
 
 It summarizes revenue, customer behavior, sales performance, and product/category insights using interactive Power BI pages.
 
+The `.pbix` file is not included in this repository due to file size limitations. Dashboard screenshots and documentation are provided instead.
+
 ---
 
 ## 1. Executive Summary
