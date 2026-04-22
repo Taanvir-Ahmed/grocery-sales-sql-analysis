@@ -87,13 +87,31 @@ The `sales` table contains ~6.6M rows. To avoid slow joins and MySQL timeouts du
 
 ---
 
+## Power BI Dashboard
+
+This project also includes a Power BI dashboard built on top of the SQL analysis.
+
+The dashboard contains 5 interactive pages:
+- Executive Summary
+- Revenue & Trends Analysis
+- Customer Analytics & Behavior
+- Performance Analysis – Sales Team & Geography
+- Product Intelligence & Category Analysis
+
+➡ Full dashboard documentation: [DASHBOARD.md](./DASHBOARD.md)
+
+---
+
 ## Skills Demonstrated
 
-- SQL joins and relational modeling  
-- KPI development and business reporting  
-- Data quality checks (keys, nulls, orphans)  
-- Performance optimization using enriched tables/views  
-- Clear insight communication for stakeholders  
+- SQL joins and relational data modeling  
+- Data quality validation and integrity checks  
+- KPI design and business metric calculation  
+- Analytical views and materialized tables  
+- Query optimization for large datasets  
+- Business insight generation using SQL  
+- Dashboard development in Power BI  
+- Business reporting and data storytelling 
 
 ---
 
@@ -103,8 +121,24 @@ The `sales` table contains ~6.6M rows. To avoid slow joins and MySQL timeouts du
 grocery-sales-sql-analysis/
 ├── README.md
 ├── insights.md
-├── queries/
+├── DASHBOARD.md
+├── .gitignore
 ├── data/
-├── schema/
-└── .gitignore
+│   └── README.md
+├── queries/
+│   ├── 01_create_database.sql
+│   ├── 02_create_tables.sql
+│   ├── 03_create_sales_enriched_table.sql
+│   ├── 04_create_view_sales_enriched.sql
+│   ├── 05_data_quality_checks.sql
+│   └── 06_sales_analysis_queries.sql
+├── dashboard/
+│   └── screenshots/
+│       ├── 1_executive_summary.png
+│       ├── 2_revenue_trends.png
+│       ├── 3_customer_analytics.png
+│       ├── 4_performance_analysis.png
+│       └── 5_product_category_analysis.png
+└── schema/
+    └── README.md
 
